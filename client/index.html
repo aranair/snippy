@@ -11,31 +11,24 @@
 </body>
 
 <template name="topnav">
-  <div class="navbar navbar-fixed-top">
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="navbar-inner">
       <div class="container-fluid">
         <div class="pull-right" style="padding-top:10px;">
           {{> loginButtons align="right"}}
         </div>
-        <!-- <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                 <span class="icon-bar"></span>
-                 <span class="icon-bar"></span>
-                 <span class="icon-bar"></span>
-               </a> -->
-        <a class="brand"  href="/">Snippy</a>
+        <a class="navbar-brand brand" href="/">Snippy</a>
         <div class="nav-collapse">          
-            
         </div>
       </div>
     </div>
-  </div>
+  </nav>
 </template>
 
 <template name="readme">
-  <div class="span2" id="about">
+  <div class="col-xs-12 col-sm-4 col-md-2">
     <div class="page-header">
-      <h1>readme
-      </h1>
+      <h1>readme</h1>
       <span style="font-size:14px;"><a href="#" id="about-collapse-link" class="" data-toggle="collapse" data-target="#about-content"> - collapse content - </a></span>
     </div>
     <div class="clear"></div>
@@ -84,24 +77,20 @@
 </template>
 
 <template name="searchform">
-  <div class="input-prepend" style="width:200px;">
-    <span class="add-on">
-      <i class="icon-search"></i>
-    </span>
-    <input class="searchText" id="searchText" type="text" placeholder="Fuzzy snippet filter/highlight">
+  <div class="form__fuzzy-search">
+    <span class="add-on"> <i class="icon-search"></i> </span>
+    <input class="searchText form-control" id="searchText" type="text" placeholder="Fuzzy snippet filter/highlight">
   </div>
 </template>
 
 <template name="snippetslist">
-  <div class="span10">
+  <div class="col-xs-12 col-sm-8 col-md-10">
     <div class="page-header">
       <h1>Beautified Snippets
       </h1>
       
       <span style="font-size:14px;">
         <span style="font-size:15px;color:#c00; font-weight:normal; letter-spacing:1px;">Complete with fuzzy filtering and highlighting!</span>
-        <a href="#" id="main-collapse-link" class="pull-right" data-toggle="collapse" data-target="#snippets-content"> - collapse content - 
-        </a>
       </span>
     </div>
 
@@ -111,10 +100,18 @@
     </div>
     
     <div id="snippets-content">
-      <form id="new_snippet" style="padding-right:25px;">
-          <textarea name="new_snippet_content" id="new_snippet_content" placeholder="Paste your snippet here!"></textarea>
-          <input type="submit" value="Save" class="btn btn-success" style="float:left; margin-right:30px;">
-          {{> searchform}}
+      <form role="form">
+        <div class="form-group">
+          <textarea class="form-control" name="new_snippet_content" placeholder="Paste your snippet here!"></textarea>
+        </div>
+        <div class="row">
+          <div class="form__save-btn-container">
+            <button type="submit" class="form__save-btn btn btn-success">Save</button>
+          </div>
+          <div class="col-xs-8">
+            {{> searchform}}
+          </div>
+        </div>
       </form>
       <span style="color:#777777;font-size:11px;">Click to Highlight</span>
       <input id="current_delete_id" type="text" style="display:none;" value="test"/>

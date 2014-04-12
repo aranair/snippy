@@ -1,13 +1,10 @@
 /* CSS declarations go here */
 
 body {
-  padding-top:60px;
+  padding-top:40px;
 }
 
 @media (max-width: 979px) {
-	body {
-		padding-top: 0px;;
-	}
 }
 
 .page-header {
@@ -23,12 +20,18 @@ body {
 	opacity:0.7;
 }
 
-
-#new_snippet_content {
-	width:100%;
-	max-width:100%;
-/*	height:0px;*/
+.form__save-btn-container {
+  width: 100px;
+  margin-left: 15px;
 }
+
+.form__save-btn {
+  float: left;
+}
+.form__fuzzy-search {
+  width: 255px;
+}
+
 .clear {
 	clear:both;
 }
