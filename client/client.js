@@ -1,121 +1,61 @@
-// # 
-// # Deps.autorun ->
-// # 	Meteor.subscribe("snippets", Session.get('searchQuery'))
-// # 
-// # if Meteor.is_client
-// #   # re = new RegExp('page-header', 'i')
-// #   # re = new RegExp(Session.get('searchQuery'), 'i')
-// #   # Template.snippetslist.snippets = -> Snippets.find({'content':{$regex:re}}, {sort: {created_at:-1}})
-// #   Template.snippetslist.snippets = -> Snippets.find({sort: {created_at:-1}})
-// # 		
-// #   Template.snippetslist.events =
-// #     'submit #new_snippet': (event) ->
-// #       event.preventDefault()
-// #       Meteor.call('createSnippet', {content:$('#new_snippet_content').val()}, (e, p) -> if p == false
-// #         $('#createalert').css('display', 'block')
-// #       )
-// #       # Snippets.insert({content:$('#new_snippet_content').val(), created_at: (new Date())})
-// #       $("#new_snippet_content").val("")
-// # 		
-// # 	Template.snippet.events = 
-// # 		'click .delete_snippet': (event) ->
-// # 			event.preventDefault()
-// # 			Snippets.remove(this._id)
-// # 	
-// # 	Template.snippetslist.rendered = ->
-// # 		$("code").each (i, e) ->
-// # 		  hljs.highlightBlock e,'    ', false
-// # 		
-// # 	Template.searchform.events =
-// # 		'change .searchText': (event) ->
-// # 			Session.set('searchQuery', $(".searchText").val())
-
-
-Meteor.startup(function() {
-	if (Session.get('searchQuery')) {
-		$(".searchText").val(Session.get('searchQuery'))
-	}
-	Deps.autorun(function() {
-	  // return Meteor.subscribe("snippets", Session.get('searchQuery'));
-		Meteor.subscribe("snippets")
-	});
-})
-
-
-if (Meteor.is_client) {
+if (Meteor.isClient) {
+  Meteor.startup(function() {
+    if (Session.get('searchQuery')) {
+      $(".js-search-text").val(Session.get('searchQuery'))
+    }
+    Deps.autorun(function() {
+      // Meteor.subscribe("snippets", Session.get('searchQuery'));
+      Meteor.subscribe("snippets")
+    });
+  })
 	
+  // Selects the snippet  when you click on the panel
   function SelectText(element) {
-      var doc = document
-          , text = doc.getElementById(element)
-          , range, selection
+    var doc = document
+      , text = doc.getElementById(element)
+      , range, selection
       ;    
-      if (doc.body.createTextRange) { //ms
-          range = doc.body.createTextRange();
-          range.moveToElementText(text);
-          range.select();
-      } else if (window.getSelection) { //all others
-          selection = window.getSelection();        
-          console.log(selection);
-          range = doc.createRange();
-          console.log(range);
-          console.log(text);
-          range.selectNodeContents(text);
-
-          selection.removeAllRanges();
-          selection.addRange(range);
-      }
+    if (doc.body.createTextRange) { //ms
+      range = doc.body.createTextRange();
+      range.moveToElementText(text);
+      range.select();
+    } else if (window.getSelection) { //all others
+      selection = window.getSelection();        
+      range = doc.createRange();
+      range.selectNodeContents(text);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
   }
+
   Template.snippetslist.snippets = function() {
 	  if (!Session.get('searchQuery')) {
 			return Snippets.find({}, {sort: {created_at: -1}})
 		} else {
-			return Snippets.find({content:{$regex:Session.get('searchQuery'), $options: 'i'}},{sort: {created_at: -1}});
+			return Snippets.find({
+        content: { $regex:Session.get('searchQuery'), $options: 'i' }
+      }, { sort: { created_at: -1 } });
 		}
   };
   Template.snippetslist.events = {
-    'submit #new_snippet': function(event) {
+    'click .form__save-btn': function(event) {
       event.preventDefault();
-      Meteor.call('createSnippet', {
-        content: $('#new_snippet_content').val()
-      }, function(e, p) {
-        if (p === false) {
-          $('#createalert').css('display', 'block');
-        }
+      var newSnippetContent = $('.js-new-snippet-content').val();
+      if (newSnippetContent === '') { return; }
+
+      Meteor.call('createSnippet', { content: newSnippetContent }, function(e, p) {
+        if (!p) { $('.js-create-alert').css('display', 'block'); }
       });
-      $("#new_snippet_content").val("");
+      $('.js-new-snippet-content').val('');
     }
-		// ,
-		// 'keyup #new_snippet_content':function (event) {
-		// 			console.log(event.srcElement)
-		// 			if (event.keyCode == 86 && (event.metaKey || event.ctrlKey)) {
-		// 				
-		// 				setTimeout(function () { 
-		// 						console.log($("#new_snippet_content").val())
-		// 				    }, 100);
-		// 				event.preventDefault();
-		// 				Meteor.call('createSnippet', {
-		// 	        content: $("#new_snippet_content").val()
-		// 	      }, function(e, p) {
-		// 	        if (p === false) {
-		// 	          $('#createalert').css('display', 'block');
-		// 	        }
-		// 	      });
-		// 	      $("#new_snippet_content").val("");
-		// 			}
-		// 		}
   };
 	
 	Template.snippet.events = {
-	  'click .delete_snippet': function(event) {
-	    event.preventDefault();
+	  'click .js-delete-snippet': function(event) {
 			var currentId = this._id
-			$('#current_delete_id').val(currentId)
-			$('#modal-from-dom').modal('show');
-			// var confirmWin = window.confirm("Delete this snippet?")
-			// if (confirmWin)
-				// Snippets.remove(this._id);
+			$('.js-current-delete-id').val(currentId)
 	  },
-		'click .select_snippet': function(event) {
+		'click .js-select-snippet': function(event) {
 			event.preventDefault();
 			var id = $(event.target).data('id')
 		 	SelectText(id);
@@ -125,25 +65,27 @@ if (Meteor.is_client) {
 	Template.bootstrapConfirmation.events = {
 		'click .confirm_delete': function (event) {
 			event.preventDefault();
-			var deleteId = $('#current_delete_id').val()
-			$('#modal-from-dom').modal('hide');
-			$('#current_delete_id').val('')
+			var deleteId = $('.js-current-delete-id').val()
+			$('.js-delete-modal').modal('hide');
+			$('.js-current-delete-id').val('')
 			Snippets.remove(deleteId);
 		}
 	};
 
-	Template.snippetslist.rendered = function() {
+	Template.searchform.rendered = function() {
 		searchQuery = Session.get('searchQuery')
+      console.log(searchQuery);
 
 	  $("pre code").each(function(i, e) {
-	    hljs.highlightBlock(e, '    ', false);
+	    // hljs.highlightBlock(e, '', false);
+	    hljs.highlightBlock(e);
 			$(e).highlight(searchQuery)
 	  });
 	};
 
 	Template.searchform.events = {
-		'keyup .searchText': function(event) {
-	    Session.set('searchQuery', $(".searchText").val());
+		'keyup .js-search-text': function(event) {
+	    Session.set('searchQuery', $('.js-search-text').val());
 	  }
 	};
 }

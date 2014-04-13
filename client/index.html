@@ -6,53 +6,46 @@
 </head>
 
 <body>
-  {{> topnav}}
+<a href="https://github.com/aranair/snippy"><img class="header__github-fork" style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+  <div class="header__login-buttons">{{> loginButtons}}</div>
   {{> main}}
 </body>
 
-<template name="topnav">
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="navbar-inner">
-      <div class="container-fluid">
-        <div class="pull-right" style="padding-top:10px;">
-          {{> loginButtons align="right"}}
-        </div>
-        <a class="navbar-brand brand" href="/">Snippy</a>
-        <div class="nav-collapse">          
-        </div>
-      </div>
-    </div>
-  </nav>
-</template>
+<!-- <template name="topnav"> -->
+<!-- <nav class="navbar navbar-default navbar-fixed-top" role="navigation"> -->
+<!--   <div class="container-fluid"> -->
+<!--     <div class="navbar-header"> -->
+<!--       <a class="navbar-brand brand" href="/">Snippy</a> -->
+<!--       {{> loginButtons align="right" class="header__login-buttons"}} --> 
+<!--     </div> -->
+<!--     <div class="js-navbar-collapse-menu"> -->
+<!--       <ul class="nav navbar-nav"> -->
+<!--       </ul> -->
+<!--     </div> -->
+<!--   </div> -->
+<!-- </nav> -->
+<!-- </template> -->
 
 <template name="readme">
   <div class="col-xs-12 col-sm-4 col-md-2">
     <div class="page-header">
       <h1>readme</h1>
-      <span style="font-size:14px;"><a href="#" id="about-collapse-link" class="" data-toggle="collapse" data-target="#about-content"> - collapse content - </a></span>
+      <span style="font-size:14px;"><a href="#" data-toggle="collapse" data-target="#about-content"> - collapse content - </a></span>
     </div>
     <div class="clear"></div>
     <div id="about-content" class="collapse in">
       <p>
-        An proof-of-concept application built quickly with <a href="http://www.meteor.com" target="_blank">Meteor</a>, a full-stack Javascript framework.
-        <!-- <ul>
-                  <li>bootstrap</li>
-                  <li>accounts-base</li>
-                  <li>accounts-ui</li>
-                  <li>accounts-coffeescript</li>
-                  <li>accounts-email</li>
-                  <li>accounts-password</li>
-                </ul> -->
+        A fun project built quickly and iterated a number of timeswith <a href="http://www.meteor.com" target="_blank">Meteor</a>, a full-stack Javascript framework. (Currently on Meteor 0.8.0)
       </p>
       <p>
-        If you'll like to talk about collaborations, or get the source code for this project, feel free to find me at <b>boa.homan at gmail</b>.
+        If you'll like to talk about collaborations, feel free to find me at <b>boa.homan at gmail</b>.
       </p>
       <br>
       <p>
         Other projects include:
         <ul>
           <li><a href="http://ajensha.biz">Ajensha Consulting</a></li>
-          <li><a href="http://www.tinyfu.com">Tinyfu</a></li>
+          <li><a href="http://www.tinyfu.com">Tinyfu (Deprecated)</a></li>
         </ul>
       </p>
     </div>
@@ -61,25 +54,13 @@
 
 
 <template name="snippet">
-  <!-- <a href="#" data-id="{{_id}}" class="select_snippet"> -->
-  <!-- <?prettify lang=html linenums=true?> -->
-  <!-- <pre class="prettyprint linenums" style="color:#f8f8f8"> -->
-  <!-- <div id="snippet_actions"> -->
-    <button class="close delete_snippet" >&times;</button>
-    <!-- <a class="pull-right collapse_snippet" data-target="#{{_id}}" data-toggle="collapse" href="#"><i class="icon-chevron-down"></i></a> -->
-    <!-- <a href="#" data-id="{{_id}}" class="pull-left select_snippet">Select</a> -->
-  <!-- </div> -->
-  <!-- <div id="{{_id}}" class="collapse in"> -->
-    <pre><code class="select_snippet" data-id="code-{{_id}}" id="code-{{_id}}">{{content}}</code></pre>
-  <!-- </a> -->
-  <!-- </div> -->
-  <div class="clear"></div>
+<pre class="snippet"><button class="close js-delete-snippet snippet__delete-button" data-toggle="modal" data-target=".js-delete-modal">&times;</button><button class="js-save-snippet close snippet__select-button"><span class="glyphicon glyphicon-floppy-save"></span></button><code class="js-select-snippet snippet-list__snippet-container" data-id="code-{{_id}}" id="code-{{_id}}">{{content}}</code></pre>
 </template>
 
 <template name="searchform">
   <div class="form__fuzzy-search">
     <span class="add-on"> <i class="icon-search"></i> </span>
-    <input class="searchText form-control" id="searchText" type="text" placeholder="Fuzzy snippet filter/highlight">
+    <input class="js-search-text form-control" type="text" placeholder="Fuzzy snippet filter/highlight">
   </div>
 </template>
 
@@ -94,15 +75,15 @@
       </span>
     </div>
 
-    <div class="alert alert-error" style="display:none;" id="createalert">
+    <div class="alert alert-error js-create-alert" style="display:none;">
       Oh snap! I'll need you to sign in or create an account first! (top-right corner)
       <button type="button" class="close" data-dismiss="alert">&times;</button>
     </div>
     
     <div id="snippets-content">
-      <form role="form">
+      <form role="form" class="js-new-snippet">
         <div class="form-group">
-          <textarea class="form-control" name="new_snippet_content" placeholder="Paste your snippet here!"></textarea>
+          <textarea class="form-control js-new-snippet-content" name="new_snippet_content" placeholder="Paste your snippet here!"></textarea>
         </div>
         <div class="row">
           <div class="form__save-btn-container">
@@ -114,7 +95,7 @@
         </div>
       </form>
       <span style="color:#777777;font-size:11px;">Click to Highlight</span>
-      <input id="current_delete_id" type="text" style="display:none;" value="test"/>
+      <input class="js-current-delete-id" type="text" style="display:none;" value="test"/>
       <div id ="snippets-inner-content">
       {{#each snippets}}
         {{> snippet}}
@@ -125,10 +106,12 @@
 </template>
 
 <template name="bootstrapConfirmation">
-  <div id="modal-from-dom" class="modal hide fade">
+<div class="modal fade js-delete-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
       <div class="modal-header">
-        <a href="#" class="close">&times;</a>
-        <h3>Delete Snippet</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Delete Snippet</h4>
       </div>
       <div class="modal-body">
         <p>You are about to delete a snippet, this procedure is irreversible.</p>
@@ -136,17 +119,19 @@
       </div>
       <div class="modal-footer">
         <a href="#" class="btn btn-danger confirm_delete">Delete</a>
-        <a href="javascript:$('#modal-from-dom').modal('hide'); $('#current_delete_id').val('');" class="btn secondary">Cancel</a>
+        <a href="javascript:$('.js-delete-modal').modal('hide'); $('.js-current-delete-id').val('');" class="btn secondary">Cancel</a>
       </div>
-  </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </template>
 
 <template name="main">
-  <div class="container-fluid">
-      <div class="row-fluid">
-        {{> readme}}
-        {{> snippetslist}}
-        {{> bootstrapConfirmation}}
-      </div>
+<div class="container-fluid">
+  <div class="row-fluid">
+    {{> readme}}
+    {{> snippetslist}}
   </div>
+</div>
+{{> bootstrapConfirmation}}
 </template>
