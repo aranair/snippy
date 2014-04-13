@@ -5,7 +5,17 @@ if (Meteor.isClient) {
     }
     Deps.autorun(function() {
       // Meteor.subscribe("snippets", Session.get('searchQuery'));
-      Meteor.subscribe("snippets")
+      Meteor.subscribe("snippets", function onComplete() {
+        var client = new ZeroClipboard($('.js-clipboard-button'));
+        client.on( "load", function( readyEvent ) {
+          client.on( "aftercopy", function( event ) {
+            // `this` === `client`
+            // `event.target` === the element that was clicked
+            event.target.style.display = "none";
+            alert("Copied text to clipboard: " + event.data["text/plain"] );
+          } );
+        });
+      })
     });
   })
 	
@@ -72,9 +82,8 @@ if (Meteor.isClient) {
 		}
 	};
 
-	Template.searchform.rendered = function() {
+	Template.snippetslist.rendered = function() {
 		searchQuery = Session.get('searchQuery')
-      console.log(searchQuery);
 
 	  $("pre code").each(function(i, e) {
 	    // hljs.highlightBlock(e, '', false);
@@ -89,4 +98,3 @@ if (Meteor.isClient) {
 	  }
 	};
 }
-

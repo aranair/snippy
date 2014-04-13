@@ -3,6 +3,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
   <script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
+  <script src="client/ZeroClipboard.js"></script>
 </head>
 
 <body>
@@ -45,7 +46,7 @@
         Other projects include:
         <ul>
           <li><a href="http://ajensha.biz">Ajensha Consulting</a></li>
-          <li><a href="http://www.tinyfu.com">Tinyfu (Deprecated)</a></li>
+          <li><a href="http://www.tinyfu.herokuapp.com">Tinyfu</a></li>
         </ul>
       </p>
     </div>
@@ -54,7 +55,9 @@
 
 
 <template name="snippet">
-<pre class="snippet"><button class="close js-delete-snippet snippet__delete-button" data-toggle="modal" data-target=".js-delete-modal">&times;</button><button class="js-save-snippet close snippet__select-button"><span class="glyphicon glyphicon-floppy-save"></span></button><code class="js-select-snippet snippet-list__snippet-container" data-id="code-{{_id}}" id="code-{{_id}}">{{content}}</code></pre>
+<pre class="snippet"><button class="close js-delete-snippet snippet__delete-button" data-toggle="modal" data-target=".js-delete-modal">&times;</button><button class="js-clipboard-button close snippet__clipboard-button" data-clipboard-target="js-select-snippet">Copy
+<!-- <span class="glyphicon glyphicon-floppy-save"></span> -->
+</button><code class="js-select-snippet snippet-list__snippet-container" data-id="code-{{_id}}" id="code-{{_id}}">{{content}}</code></pre>
 </template>
 
 <template name="searchform">

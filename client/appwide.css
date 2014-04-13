@@ -1,5 +1,8 @@
 /* CSS declarations go here */
 
+.zeroclipboard-is-hover { background-color:#eee; }
+.zeroclipboard-is-active { background-color:#aaa; }
+
 body {
   padding-top:20px;
 }
@@ -14,6 +17,7 @@ body {
 .navbar-header {
   width: 100%;
 }
+
 .login-buttons-dropdown-align-right {
   margin-top: 18px;
   margin-right: 15px;
@@ -24,6 +28,7 @@ body {
   position: absolute;
   top: 15px;
   right: 150px;
+  z-index: 9999;
 }
 
 .page-header {
@@ -90,7 +95,7 @@ button.close:hover {
 .snippet__delete-button {
   margin-top: 2px;
 }
-.snippet__select-button {
+.snippet__clipboard-button {
   float: right;
   margin-top: 5px;
   font-size: 15px;
