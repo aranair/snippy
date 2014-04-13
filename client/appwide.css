@@ -4,6 +4,12 @@ body {
   padding-top:20px;
 }
 
+@media (min-width: @screen-md-min) {
+  .readme {
+    position: fixed;
+  }
+}
+
 .header__github-fork {
   z-index: 9999;
   text-align: right;
