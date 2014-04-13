@@ -6,10 +6,12 @@
 coffeescript
 handlebars
 accounts-password
-accounts-ui
 email
 standard-app-packages
 jquery
 bootstrap3-sass
 scss
 bootstrap-3
+accounts-github
+accounts-facebook
+accounts-ui
