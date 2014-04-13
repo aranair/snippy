@@ -1,8 +1,5 @@
 /* CSS declarations go here */
 
-.zeroclipboard-is-hover { background-color:#eee; }
-.zeroclipboard-is-active { background-color:#aaa; }
-
 body {
   padding-top:20px;
 }
@@ -81,6 +78,13 @@ button.close:hover {
 	opacity:1;
 }
 
+.snippet-list {
+  margin-top: 15px;
+}
+.snippet-list__highlight-explanation {
+  color: #777777;
+  font-size: 11px;
+}
 .snippet-list__snippet-container {
 	line-height: 26px;
 	font-size: 12px;
@@ -88,8 +92,12 @@ button.close:hover {
 	color:black;
   cursor:pointer;
 } 
+.snippet-list__snippet-container {
+  background: white;
+  color: black;
+}
 .snippet-list__snippet-container:hover{
-	color:black;
+  background: rgb(248, 248, 255);
 }
 
 .snippet__delete-button {

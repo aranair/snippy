@@ -3,7 +3,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
   <script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
-  <script src="client/ZeroClipboard.js"></script>
+  <!-- <script src="client/ZeroClipboard.js"></script> -->
 </head>
 
 <body>
@@ -55,8 +55,7 @@
 
 
 <template name="snippet">
-<pre class="snippet"><button class="close js-delete-snippet snippet__delete-button" data-toggle="modal" data-target=".js-delete-modal">&times;</button><button class="js-clipboard-button close snippet__clipboard-button" data-clipboard-target="js-select-snippet">Copy
-<!-- <span class="glyphicon glyphicon-floppy-save"></span> -->
+<pre class="snippet"><button class="close js-delete-snippet snippet__delete-button" data-toggle="modal" data-target=".js-delete-modal">&times;</button><button class="js-clipboard-button close snippet__clipboard-button" data-clipboard-target="js-select-snippet">
 </button><code class="js-select-snippet snippet-list__snippet-container" data-id="code-{{_id}}" id="code-{{_id}}">{{content}}</code></pre>
 </template>
 
@@ -97,9 +96,9 @@
           </div>
         </div>
       </form>
-      <span style="color:#777777;font-size:11px;">Click to Highlight</span>
       <input class="js-current-delete-id" type="text" style="display:none;" value="test"/>
-      <div id ="snippets-inner-content">
+      <div class="snippet-list">
+        <span class="snippet-list__highlight-explanation" style="">Click to Highlight</span>
       {{#each snippets}}
         {{> snippet}}
       {{/each}}
