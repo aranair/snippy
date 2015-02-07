@@ -1,4 +1,6 @@
 
 Meteor.publish("snippets", function () {
-	return Snippets.find({owner: this.userId}, {sort:{created_at: -1}})
+	return Snippets.find(
+    { owner: this.userId }, { sort: { created_at: -1 } }
+  )
 });
