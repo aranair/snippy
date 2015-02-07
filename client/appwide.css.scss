@@ -6,6 +6,9 @@ $screen-md-min: 992px;
 $screen-sm-min: 768px;
 
 @media (max-width: $screen-sm-min) {
+  .readme {
+    margin-top: 15px;
+  }
 }
 
 body {
@@ -22,14 +25,9 @@ body {
 }
 
 .login-buttons-dropdown-align-right {
-  margin-top: 18px;
-  float: right;
-}
-
-.header__login-buttons {
   position: absolute;
   top: 15px;
-  right: 150px;
+  right: 20px;
   z-index: 9999;
 }
 
