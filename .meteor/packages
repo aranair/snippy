@@ -9,8 +9,10 @@ accounts-password
 email
 standard-app-packages
 jquery
-bootstrap-3
 accounts-github
 accounts-facebook
 accounts-ui
 reywood:bootstrap3-sass
+blaze
+twbs:bootstrap
+peppelg:bootstrap-3-modal

@@ -12,6 +12,29 @@
   <script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
 </head>
 
+<template name="deleteConfirmation">
+<div class="modal fade" id="js-delete-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <h4 class="modal-title">Delete Snippet</h4>
+      </div>
+      <div class="modal-body">
+        <p>You are about to delete a snippet, this procedure is irreversible.</p>
+        <p>Do you want to proceed?</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn btn-danger confirm_delete">Delete</a>
+        <a href="javascript:$('#js-delete-modal').modal('hide'); $('.js-current-delete-id').val('');" class="btn secondary">Cancel</a>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</template>
+
 <body>
   <!-- {{> topnav}} -->
   <div class="container-fluid">
@@ -21,5 +44,5 @@
       {{> snippetslist}}
     </div>
   </div>
-  {{> bootstrapConfirmation}}
+  {{> deleteConfirmation}}
 </body>

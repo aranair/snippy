@@ -38,15 +38,18 @@ if (Meteor.isClient) {
     }
   }
 
-  Template.snippetslist.snippets = function() {
-	  if (!Session.get('searchQuery')) {
-			return Snippets.find({}, {sort: {created_at: -1}})
-		} else {
-			return Snippets.find({
-        content: { $regex:Session.get('searchQuery'), $options: 'i' }
-      }, { sort: { created_at: -1 } });
-		}
-  };
+  Template.snippetslist.helpers({
+    snippets: function() {
+      if (!Session.get('searchQuery')) {
+        return Snippets.find({}, {sort: {created_at: -1}})
+      } else {
+        return Snippets.find({
+          content: { $regex:Session.get('searchQuery'), $options: 'i' }
+        }, { sort: { created_at: -1 } });
+      }
+    },
+  });
+
   Template.snippetslist.events = {
     'click .form__save-btn': function(event) {
       event.preventDefault();
@@ -62,8 +65,9 @@ if (Meteor.isClient) {
 	
 	Template.snippet.events = {
 	  'click .js-delete-snippet': function(event) {
-			var currentId = this._id
-			$('.js-current-delete-id').val(currentId)
+      event.preventDefault();
+      $('.js-current-delete-id').val(this._id);
+      Modal.show("deleteConfirmation");
 	  },
 		'click .js-select-snippet': function(event) {
 			event.preventDefault();
@@ -72,24 +76,25 @@ if (Meteor.isClient) {
 		}
 	};
 	
-	Template.bootstrapConfirmation.events = {
-		'click .confirm_delete': function (event) {
+	Template.deleteConfirmation.events({
+		'click .confirm_delete': function(event) {
 			event.preventDefault();
-			var deleteId = $('.js-current-delete-id').val()
-			$('.js-delete-modal').modal('hide');
-			$('.js-current-delete-id').val('')
+			var deleteId = $('.js-current-delete-id').val();
+      Modal.hide("deleteConfirmation");
+			$('.js-current-delete-id').val('');
 			Snippets.remove(deleteId);
 		}
-	};
+	});
 
+  Template.snippet.rendered = function() {
+    this.$("pre code").each(function(i, e) {
+      // hljs.highlightBlock(e, '', false);
+      hljs.highlightBlock(e);
+      $(e).highlight(searchQuery)
+    });
+  }
 	Template.snippetslist.rendered = function() {
-		searchQuery = Session.get('searchQuery')
-
-	  $("pre code").each(function(i, e) {
-	    // hljs.highlightBlock(e, '', false);
-	    hljs.highlightBlock(e);
-			$(e).highlight(searchQuery)
-	  });
+		searchQuery = Session.get('searchQuery');
 	};
 
 	Template.searchform.events = {
