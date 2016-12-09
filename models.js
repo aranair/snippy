@@ -1,4 +1,4 @@
-Snippets = new Meteor.Collection("snippets")
+Snippets = new Mongo.Collection("snippets")
 
 Snippets.allow({
 	insert: function () {
