@@ -6,12 +6,6 @@ $screen-lg-min: 1200px;
 $screen-md-min: 992px;
 $screen-sm-min: 768px;
 
-@media (max-width: $screen-sm-min) {
-  .readme {
-    margin-top: 15px;
-  }
-}
-
 body {
   padding-top:20px;
   font-family: 'Source Sans Pro'
@@ -51,7 +45,6 @@ body {
   float: left;
 }
 .form__fuzzy-search {
-  width: 255px;
 }
 
 .clear {
@@ -128,3 +121,26 @@ h1.page-header__title {
 .snippets-list {
   margin-top: 145px;
 }
+
+.page-header__mobile-intro {
+  display: none;
+}
+
+@media (max-width: $screen-sm-min) {
+  .readme {
+    margin-top: 15px;
+  }
+
+  .snippets-list {
+    margin-top: 0;
+  }
+
+  #about-content {
+    display: none;
+  }
+
+  .page-header__mobile-intro {
+    display: block;
+  }
+}
+
