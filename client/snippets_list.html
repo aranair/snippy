@@ -1,22 +1,11 @@
 <template name="snippetslist">
-  <div class="col-xs-12 col-sm-8 col-md-10">
-    <div class="snippets-list__header--sticky page-header">
-      <h1>Beautified Snippets
-      </h1>
-      
-      <span style="font-size:14px;">
-        <span style="font-size:15px;color:#c00; font-weight:normal; letter-spacing:1px;">
-          Complete with fuzzy filtering and highlighting!
-        </span>
-      </span>
-    </div>
-
+  <div class="snippets-list col-xs-12 col-sm-8 col-md-8">
     <div class="alert alert-error js-create-alert" style="display:none;">
       Oh snap! I'll need you to sign in or create an account first! (top-right corner)
       <button type="button" class="close" data-dismiss="alert">&times;</button>
     </div>
     
-    <div id="snippets-content">
+    <div id="snippets-content" class="col-xs-12 col-sm-8">
       <form role="form" class="js-new-snippet">
         <div class="form-group">
           <textarea class="form-control js-new-snippet-content" name="new_snippet_content" placeholder="Paste your snippet here!"></textarea>
@@ -30,6 +19,7 @@
           </div>
         </div>
       </form>
+      <hr>
       <input class="js-current-delete-id" type="text" style="display:none;" value="test"/>
       <div class="snippet-list">
         <span class="snippet-list__highlight-explanation" style="">Click to Highlight</span>
