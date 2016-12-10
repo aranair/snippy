@@ -2,8 +2,6 @@ Snippy
 ======
 
 Beautified Snippets with Fuzzy Search
-- Uses Meteor 1.0.3
-- Changes are synchronized across all instances of logins
+- Updated to Meteor 1.4.2.3
 - Fuzzy searches/highlighting
-
-
+- Changes are synchronized across all instances of logins

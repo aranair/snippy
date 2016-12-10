@@ -1,5 +1,5 @@
 /* CSS declarations go here */
-@import '.meteor/local/build/programs/server/assets/packages/reywood_bootstrap3-sass/bootstrap';
+@import '{reywood:bootstrap3-sass}/bootstrap';
 
 $screen-lg-min: 1200px;
 $screen-md-min: 992px;
